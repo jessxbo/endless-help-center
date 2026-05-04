@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Endless Studios Help Center</title>
+<style>
+  /* ===== Notion-inspired type & color system ===== */
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f7f6f3;
+    --text: #37352f;
+    --text-soft: #787774;
+    --text-mute: #9b9a97;
+    --border: #ebebea;
+    --border-strong: #e3e2e0;
+    --accent: #2383e2;
+    --accent-hover: #0b6bcb;
+
+    /* soft pastel category tints, similar to Notion's */
+    --tint-yellow: #fdf3d4;
+    --tint-blue:   #d9eafe;
+    --tint-pink:   #fce4ec;
+    --tint-green:  #dcefe2;
+    --tint-orange: #fde4d3;
+    --tint-purple: #e8def8;
+
+    --shadow-card: 0 1px 2px rgba(15,15,15,0.04), 0 2px 6px rgba(15,15,15,0.04);
+    --shadow-card-hover: 0 4px 12px rgba(15,15,15,0.08), 0 2px 4px rgba(15,15,15,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, "Apple Color Emoji", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ===== Top nav bar ===== */
+  .topnav {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topnav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 17px;
+  }
+  .brand-mark {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #ff6b6b, #ffa94d);
+    display: inline-block;
+  }
+  .topnav-links {
+    display: flex; gap: 28px;
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+  .topnav-links a:hover { color: var(--text); }
+  .topnav-cta {
+    display: flex; gap: 12px; align-items: center;
+  }
+  .btn {
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-ghost { color: var(--text-soft); }
+  .btn-ghost:hover { background: var(--bg-alt); }
+  .btn-primary {
+    background: var(--text);
+    color: white;
+  }
+  .btn-primary:hover { background: #000; }
+
+  /* ===== Hero ===== */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px 48px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 28px;
+  }
+  .quick-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .pill {
+    padding: 8px 16px;
+    background: var(--bg-alt);
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--text);
+    transition: background .15s ease;
+  }
+  .pill:hover { background: #efeeec; }
+
+  /* ===== Section heading ===== */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px;
+  }
+  .section h2 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+  .section-sub {
+    color: var(--text-soft);
+    font-size: 15px;
+    margin-bottom: 32px;
+    max-width: 560px;
+  }
+
+  /* ===== Audience selector (3 big cards) ===== */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .audience-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    background: var(--bg);
+    transition: all .15s ease;
+    display: block;
+  }
+  .audience-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .audience-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .audience-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .audience-card p {
+    color: var(--text-soft);
+    font-size: 14px;
+  }
+  .audience-card .arrow {
+    margin-top: 16px;
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* ===== Popular topics grid (Notion-style cards with illustrated icons) ===== */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .topic-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    background: var(--bg);
+    transition: all .15s ease;
+    display: block;
+  }
+  .topic-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-1px);
+  }
+  .topic-icon {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin-bottom: 18px;
+  }
+  .topic-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .topic-card h3 .arrow-inline {
+    color: var(--text-mute);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+  .topic-card p {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  /* ===== Academy / featured promo strip ===== */
+  .promo {
+    max-width: 1100px;
+    margin: 24px auto 0;
+    padding: 0 32px;
+  }
+  .promo-inner {
+    background: linear-gradient(135deg, #f5efe6 0%, #ece4d3 100%);
+    border-radius: 14px;
+    padding: 40px 44px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .promo h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .promo p {
+    color: var(--text-soft);
+    font-size: 15px;
+    margin-bottom: 18px;
+    max-width: 420px;
+  }
+  .promo-cta {
+    display: inline-block;
+    padding: 9px 16px;
+    background: var(--text);
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .promo-illustration {
+    height: 140px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    border: 1px dashed rgba(0,0,0,0.08);
+  }
+
+  /* ===== "What's new" two-up ===== */
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .news-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all .15s ease;
+  }
+  .news-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+  }
+  .news-thumb {
+    height: 180px;
+    background: var(--tint-blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px;
+  }
+  .news-thumb.alt { background: var(--tint-pink); }
+  .news-body { padding: 18px 22px 22px; }
+  .news-body h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .news-body p { color: var(--text-soft); font-size: 14px; }
+
+  .section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 24px;
+  }
+  .see-all {
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* ===== Still have questions ===== */
+  .contact {
+    max-width: 1100px;
+    margin: 32px auto 64px;
+    padding: 0 32px;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .contact-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: left;
+    transition: all .15s ease;
+  }
+  .contact-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-card);
+  }
+  .contact-emoji {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .contact-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .contact-card p { color: var(--text-soft); font-size: 14px; }
+
+  /* ===== Footer doc-list (Notion's bottom directory) ===== */
+  .doc-directory {
+    border-top: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 56px 32px;
+  }
+  .doc-directory-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px 24px;
+  }
+  .doc-col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-mute);
+    margin-bottom: 14px;
+  }
+  .doc-col ul { list-style: none; }
+  .doc-col li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-soft);
+  }
+  .doc-col li:hover { color: var(--text); }
+  .doc-col li a { display: block; }
+
+  /* ===== Section divider ===== */
+  .divider {
+    max-width: 1100px;
+    margin: 16px auto;
+    padding: 0 32px;
+  }
+  .divider hr {
+    border: none;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 880px) {
+    .hero h1 { font-size: 34px; }
+    .audience-grid, .topics-grid, .contact-grid { grid-template-columns: 1fr; }
+    .news-grid { grid-template-columns: 1fr; }
+    .promo-inner { grid-template-columns: 1fr; padding: 28px; }
+    .doc-directory-inner { grid-template-columns: repeat(2, 1fr); }
+    .topnav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP NAV ================= -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <span>Endless Studios</span>
+    </div>
+    <div class="topnav-links">
+      <a href="#">Platform</a>
+      <a href="#">Programs</a>
+      <a href="#">Community</a>
+      <a href="#">For educators</a>
+      <a href="#" style="color: var(--text);">Help</a>
+    </div>
+    <div class="topnav-cta">
+      <button class="btn btn-ghost">Log in</button>
+      <button class="btn btn-primary">Sign up free</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <h1>Hi, how can we help you?</h1>
+  <div class="quick-pills">
+    <a class="pill" href="#">Getting started</a>
+    <a class="pill" href="#">Installing Godot</a>
+    <a class="pill" href="#">Course schedules</a>
+    <a class="pill" href="#">Login help</a>
+    <a class="pill" href="#">Educator resources</a>
+  </div>
+</section>
+
+<!-- ================= AUDIENCE SELECTOR ================= -->
+<section class="section">
+  <h2>Who are you?</h2>
+  <p class="section-sub">Jump straight to the answers most relevant to you.</p>
+  <div class="audience-grid">
+    <a href="#" class="audience-card">
+      <div class="audience-icon" style="background: var(--tint-yellow);">🎓</div>
+      <h3>I'm a Learner</h3>
+      <p>Joining a program, building games, and finding community.</p>
+      <div class="arrow">Browse Learner FAQs →</div>
+    </a>
+    <a href="#" class="audience-card">
+      <div class="audience-icon" style="background: var(--tint-blue);">👨‍🏫</div>
+      <h3>I'm a Facilitator or Mentor</h3>
+      <p>Delivering programs, supporting learners, and finding materials.</p>
+      <div class="arrow">Browse Facilitator FAQs →</div>
+    </a>
+    <a href="#" class="audience-card">
+      <div class="audience-icon" style="background: var(--tint-green);">🤝</div>
+      <h3>I'm a Partner</h3>
+      <p>Tech requirements, repos, and partner-specific resources.</p>
+      <div class="arrow">Browse Partner FAQs →</div>
+    </a>
+  </div>
+</section>
+
+<!-- ================= POPULAR TOPICS ================= -->
+<section class="section">
+  <h2>Popular topics</h2>
+  <div class="topics-grid">
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-yellow);">✏️</div>
+      <h3>Getting started <span class="arrow-inline">→</span></h3>
+      <p>New to Endless Studios? Start here!</p>
+    </a>
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-blue);">🎮</div>
+      <h3>Game engines <span class="arrow-inline">→</span></h3>
+      <p>Endstar, Godot, and getting your first project running.</p>
+    </a>
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-pink);">💬</div>
+      <h3>Community <span class="arrow-inline">→</span></h3>
+      <p>Join discussions, give feedback, and find mentors.</p>
+    </a>
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-green);">📅</div>
+      <h3>Programs &amp; courses <span class="arrow-inline">→</span></h3>
+      <p>Self-guided, always-on, and how to enroll.</p>
+    </a>
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-orange);">👤</div>
+      <h3>Profile &amp; account <span class="arrow-inline">→</span></h3>
+      <p>Edit your name, email, skills, and showcased games.</p>
+    </a>
+    <a href="#" class="topic-card">
+      <div class="topic-icon" style="background: var(--tint-purple);">🛠️</div>
+      <h3>Troubleshooting <span class="arrow-inline">→</span></h3>
+      <p>Login problems, bugs, and platform errors.</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ================= ACADEMY / PROMO ================= -->
+<section class="promo">
+  <div class="promo-inner">
+    <div>
+      <h3>Endless Studios Academy</h3>
+      <p>Turn curiosity into capability — learn game design, build a portfolio, and earn certificates as you go.</p>
+      <a href="#" class="promo-cta">Start learning</a>
+    </div>
+    <div class="promo-illustration">🚀</div>
+  </div>
+</section>
+
+<!-- ================= WHAT'S NEW ================= -->
+<section class="section">
+  <div class="section-header-row">
+    <h2>What's new</h2>
+    <a href="#" class="see-all">See all →</a>
+  </div>
+  <div class="news-grid">
+    <a href="#" class="news-card">
+      <div class="news-thumb">🧵</div>
+      <div class="news-body">
+        <h3>Threadbare repository now public →</h3>
+        <p>Partners and contributors can now access the Threadbare repo directly.</p>
+      </div>
+    </a>
+    <a href="#" class="news-card">
+      <div class="news-thumb alt">🎮</div>
+      <div class="news-body">
+        <h3>New Godot installation guide →</h3>
+        <p>A walkthrough for downloading and configuring Godot Engine.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ================= STILL HAVE QUESTIONS ================= -->
+<section class="contact">
+  <h2 style="margin-bottom: 24px;">Still have questions?</h2>
+  <div class="contact-grid">
+    <a href="#" class="contact-card">
+      <span class="contact-emoji">💬</span>
+      <h3>Chat with us</h3>
+      <p>Reach out to Endless Studios support.</p>
+    </a>
+    <a href="#" class="contact-card">
+      <span class="contact-emoji">👋</span>
+      <h3>Join our community</h3>
+      <p>Find answers from learners and mentors.</p>
+    </a>
+    <a href="#" class="contact-card">
+      <span class="contact-emoji">📩</span>
+      <h3>Email a partnership lead</h3>
+      <p>For partners, schools, and organizations.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ================= DOC DIRECTORY (footer-style category list) ================= -->
+<footer class="doc-directory">
+  <div class="doc-directory-inner">
+    <div class="doc-col">
+      <h4>Getting started</h4>
+      <ul>
+        <li><a href="#">What is Endless Studios?</a></li>
+        <li><a href="#">Why game design?</a></li>
+        <li><a href="#">Why is the platform free?</a></li>
+        <li><a href="#">Do I need coding experience?</a></li>
+        <li><a href="#">Platform navigation</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>Accounts &amp; access</h4>
+      <ul>
+        <li><a href="#">Creating an account</a></li>
+        <li><a href="#">Logging in</a></li>
+        <li><a href="#">Resetting your password</a></li>
+        <li><a href="#">Editing your profile</a></li>
+        <li><a href="#">Connecting GitHub</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>Programs &amp; courses</h4>
+      <ul>
+        <li><a href="#">Finding programs</a></li>
+        <li><a href="#">Self-guided vs. always-on</a></li>
+        <li><a href="#">Endless Access programs</a></li>
+        <li><a href="#">Endless Studios programs</a></li>
+        <li><a href="#">Getting access codes</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>Games</h4>
+      <ul>
+        <li><a href="#">Finding games</a></li>
+        <li><a href="#">Creating a game</a></li>
+        <li><a href="#">Maintaining a game</a></li>
+        <li><a href="#">Endstar engine</a></li>
+        <li><a href="#">Godot engine</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>Community</h4>
+      <ul>
+        <li><a href="#">Joining the community</a></li>
+        <li><a href="#">Participating in discussions</a></li>
+        <li><a href="#">Peer feedback</a></li>
+        <li><a href="#">Community guidelines</a></li>
+        <li><a href="#">Reporting issues</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>For educators</h4>
+      <ul>
+        <li><a href="#">Getting started as a facilitator</a></li>
+        <li><a href="#">Tech requirements for learners</a></li>
+        <li><a href="#">Curriculum &amp; materials</a></li>
+        <li><a href="#">Adding learners to your account</a></li>
+        <li><a href="#">Reviewing learner progress</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>For partners</h4>
+      <ul>
+        <li><a href="#">Tech requirements</a></li>
+        <li><a href="#">Threadbare repository</a></li>
+        <li><a href="#">Partner onboarding</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+    <div class="doc-col">
+      <h4>Reporting &amp; support</h4>
+      <ul>
+        <li><a href="#">Report a game</a></li>
+        <li><a href="#">Report a user</a></li>
+        <li><a href="#">Report a content issue</a></li>
+        <li><a href="#">Report a platform bug</a></li>
+        <li><a href="#">Contact support</a></li>
+        <li><a href="#">See all</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
