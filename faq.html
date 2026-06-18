@@ -35,7 +35,6 @@
 
   a { color: inherit; text-decoration: none; }
 
-  /* ===== Top nav ===== */
   .topnav {
     border-bottom: 1px solid var(--border);
     background: var(--bg);
@@ -91,7 +90,6 @@
   }
   .btn-primary:hover { background: #000; }
 
-  /* ===== Page header ===== */
   .page-header {
     max-width: 900px;
     margin: 0 auto;
@@ -119,7 +117,6 @@
   .breadcrumb a { color: var(--accent); }
   .breadcrumb a:hover { text-decoration: underline; }
 
-  /* ===== Category quick-jump ===== */
   .category-nav {
     max-width: 900px;
     margin: 32px auto 0;
@@ -153,7 +150,6 @@
   }
   .category-link-text { font-size: 15px; font-weight: 500; }
 
-  /* ===== FAQ Section ===== */
   .faq-section {
     max-width: 800px;
     margin: 0 auto;
@@ -183,7 +179,6 @@
     max-width: 600px;
   }
 
-  /* Each FAQ item is a details/summary for expand/collapse */
   details.faq-item {
     border-bottom: 1px solid var(--border);
     padding: 18px 0;
@@ -194,11 +189,9 @@
     font-weight: 600;
     color: var(--text);
     list-style: none;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 4px 0;
+    display: block;
+    padding: 4px 36px 4px 0;
+    position: relative;
   }
   details.faq-item summary::-webkit-details-marker { display: none; }
   details.faq-item summary::after {
@@ -206,9 +199,11 @@
     font-size: 24px;
     font-weight: 400;
     color: var(--text-mute);
-    flex-shrink: 0;
     line-height: 1;
     transition: transform .2s ease;
+    position: absolute;
+    right: 0;
+    top: 4px;
   }
   details.faq-item[open] summary::after {
     content: '−';
@@ -229,25 +224,19 @@
     color: var(--text-soft);
   }
   details.faq-item .faq-answer li { margin-bottom: 6px; }
-
-  .placeholder-note {
-    display: inline-block;
-    background: var(--tint-yellow);
-    color: #7a5d00;
-    font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-weight: 500;
-    margin-left: 8px;
-    vertical-align: middle;
+  details.faq-item .faq-answer code {
+    background: var(--bg-alt);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color: var(--text);
   }
 
-  /* Anchor offset so sticky nav doesn't cover headings */
   .anchor-target {
     scroll-margin-top: 80px;
   }
 
-  /* Divider between sections */
   .section-divider {
     max-width: 800px;
     margin: 0 auto;
@@ -258,7 +247,6 @@
     border-top: 1px solid var(--border);
   }
 
-  /* ===== Still have questions ===== */
   .contact {
     max-width: 800px;
     margin: 48px auto 80px;
@@ -292,18 +280,73 @@
   .contact-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
   .contact-card p { color: var(--text-soft); font-size: 14px; }
 
-  /* ===== Responsive ===== */
   @media (max-width: 720px) {
     .page-header h1 { font-size: 32px; }
     .category-nav-inner { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
     .topnav-links { display: none; }
   }
+  details.faq-item.spotlight summary {
+    font-size: 20px;
+    padding-right: 40px;
+  }
+  details.faq-item.spotlight summary::after {
+    top: 6px;
+    font-size: 28px;
+  }
+  details.faq-item.spotlight .faq-answer {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  details.faq-item.spotlight .faq-answer p {
+    margin-bottom: 14px;
+  }
+
+
+  /* ===== Threadbare-style spotlight (when arriving via anchor link) ===== */
+  details.faq-item.spotlight {
+    background: #fbf4e8;
+    border-left: 4px solid #ff6b1a;
+    border-bottom: 2px dashed #d4c4a0;
+    padding: 24px 28px 22px;
+    margin: 16px -24px;
+    border-radius: 0 12px 12px 0;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(255, 107, 26, 0.08);
+  }
+  details.faq-item.spotlight::before {
+    content: attr(data-emoji);
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 22px;
+    opacity: 0.85;
+    transform: rotate(15deg);
+  }
+  details.faq-item.spotlight summary {
+    font-size: 20px;
+    padding-right: 50px;
+  }
+  details.faq-item.spotlight summary::after {
+    top: 6px;
+    font-size: 28px;
+    right: 38px;
+    color: #ff6b1a;
+  }
+  details.faq-item.spotlight .faq-answer {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  details.faq-item.spotlight .faq-answer p {
+    margin-bottom: 14px;
+  }
+
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <nav class="topnav">
   <div class="topnav-inner">
     <a href="index.html" class="brand">
@@ -322,7 +365,6 @@
   </div>
 </nav>
 
-<!-- PAGE HEADER -->
 <section class="page-header">
   <h1>Frequently Asked Questions</h1>
   <p>Find answers to common questions from learners, facilitators, mentors, and partners.</p>
@@ -331,7 +373,6 @@
   </div>
 </section>
 
-<!-- CATEGORY QUICK JUMP -->
 <section class="category-nav">
   <div class="category-nav-inner">
     <a href="#learners" class="category-link">
@@ -349,43 +390,43 @@
   </div>
 </section>
 
-<!-- ============================================ -->
-<!-- LEARNERS SECTION                              -->
-<!-- ============================================ -->
+<!-- LEARNERS -->
 <section class="faq-section anchor-target" id="learners">
   <div class="section-tag">🎓 For Learners</div>
   <h2>Learner FAQs</h2>
   <p class="section-intro">Joining programs, building games, and getting set up on the platform.</p>
 
   <details class="faq-item">
-    <summary>Why game design? <span class="placeholder-note">needs answer</span></summary>
+    <summary>Why game design?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added — explain the value of studying game design at Endless Access.]</p>
+      <p>Games are one of the most complex things humans make. They combine art, storytelling, engineering, design, and collaboration all at once. Learning to make games builds skills that transfer everywhere: creative problem-solving, iteration, teamwork, and seeing a project through from idea to finished product.</p>
+      <p>At Endless Access, you're contributing to <em>Threadbare</em>, a real, live, open-source game, which means your work actually ships. That's a portfolio piece, a credential, and a genuine creative contribution, all in one.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>When are courses? <span class="placeholder-note">needs answer</span></summary>
+    <summary>When are courses?</summary>
     <div class="faq-answer">
-      <p>Courses are self-guided and follow an always-on schedule, so you can start anytime.</p>
-      <p>[Add more detail about specific program timing if needed.]</p>
+      <p>For self-guided programs, you can start anytime. There's no fixed schedule, and you work through sessions at your own pace, and your submissions stay open even after a session ends. For cohorts run by Endless Access, the schedule will be posted on the Endless platform.</p>
+      <p>Some programs are delivered through partner organizations (schools, nonprofits, community centers) on a set schedule. If you're joining through a partner, your facilitator will share the specific dates and session times for your cohort.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Do I have to have experience in computer science or coding? <span class="placeholder-note">needs answer</span></summary>
+    <summary>Do I have to have experience in computer science or coding?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added.]</p>
+      <p>Not at all. Our Explore programs are built for beginners, with no prior coding or game-making experience required. You'll learn by doing: modifying real games, experimenting with tools, and building things step by step with support from guides and mentors.</p>
+      <p>If you want to go deeper into code down the line, Explore: Godot introduces GDScript (Godot's beginner-friendly scripting language) in a hands-on way. But you can participate fully from day one without writing a single line of code.</p>
     </div>
   </details>
 
   <details class="faq-item">
     <summary>How do I download and install the Godot Engine?</summary>
     <div class="faq-answer">
-      <p>You can find the Godot Engine on the <a href="https://godotengine.org/" target="_blank" rel="noopener">official Godot website</a>. Download the latest version — it works with the projects used in this program.</p>
+      <p>You can find the Godot Engine on the <a href="https://godotengine.org/" target="_blank" rel="noopener">official Godot website</a>. Download the latest version. It works with the projects used in this program.</p>
       <p>For step-by-step installation help:</p>
       <ul>
-        <li><a href="https://github.com/endlessm/threadbare/discussions/563" target="_blank" rel="noopener">GitHub discussion with video (multiple OS)</a></li>
+        <li><a href="https://github.com/endlessm/threadbare/discussions/563" target="_blank" rel="noopener">Video walkthrough (multiple OS)</a></li>
         <li><a href="https://docs.google.com/document/d/1_91Zin6GpPz3q62hleSCfI8P_FZi66PCQNEXXz4XMYI/edit" target="_blank" rel="noopener">Written walkthrough (Windows)</a></li>
       </ul>
     </div>
@@ -399,34 +440,33 @@
   </details>
 
   <details class="faq-item">
-    <summary>I can't log in to the platform — what should I do?</summary>
+    <summary>I can't log in to the platform. What should I do?</summary>
     <div class="faq-answer">
       <p>Make sure you're using the correct Access Code (ask your facilitator if you're not sure), and check the <strong>My Programs</strong> page to find your program.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Can we use GitHub Desktop instead of git? <span class="placeholder-note">needs answer</span></summary>
+    <summary>Can I use GitHub Desktop instead of git?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added.]</p>
+      <p>Our guides and mentor support are built around the standard git command line workflow, so we recommend using that to make sure you can get help when you need it. That said, if you're already comfortable with GitHub Desktop, you're welcome to use it, just know that our step-by-step guides may not match what you see on screen.</p>
     </div>
   </details>
 </section>
 
 <div class="section-divider"><hr></div>
 
-<!-- ============================================ -->
-<!-- FACILITATORS SECTION                          -->
-<!-- ============================================ -->
+<!-- FACILITATORS -->
 <section class="faq-section anchor-target" id="facilitators">
   <div class="section-tag">👨‍🏫 For Facilitators &amp; Mentors</div>
   <h2>Facilitator &amp; Mentor FAQs</h2>
   <p class="section-intro">Delivering programs, supporting learners, and finding materials.</p>
 
   <details class="faq-item">
-    <summary>How do I get started to deliver a program? <span class="placeholder-note">needs answer</span></summary>
+    <summary>How do I get started to deliver a program?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added.]</p>
+      <p>Get in touch at <a href="mailto:learning@endlessaccess.org">learning@endlessaccess.org</a> and we'll set up an intro call to learn about your context, including your learners, your schedule, and which program is the right fit.</p>
+      <p>Once confirmed, you'll have the option to attend a live facilitator training or recorded training webinar with the Endless Access team. We'll then set up your program on the platform, provide access codes for your learners, and make sure you have everything you need before your first session.</p>
     </div>
   </details>
 
@@ -435,31 +475,31 @@
     <div class="faq-answer">
       <p>Learners will need a computer (Windows, macOS, or Linux) with a reliable internet connection.</p>
       <ul>
-        <li><strong>Threadbare:</strong> 4 GB RAM | Chrome / Firefox / Edge</li>
-        <li><strong>Godot-based programs:</strong> 8 GB RAM minimum | Chrome / Edge only</li>
+        <li><strong><em>Threadbare</em>:</strong> 4 GB RAM | Chrome / Firefox / Edge</li>
+        <li><strong>Godot-based programs:</strong> 8 GB RAM minimum</li>
       </ul>
       <p>You can find more in-depth tech specs for each program <a href="https://docs.google.com/document/d/1-hvNBdOtQKVcBM2OIJWRvH-lPIN6879YEXjm807f8oA/edit" target="_blank" rel="noopener">here</a>.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>How much does this cost? <span class="placeholder-note">needs answer</span></summary>
+    <summary>How much does this cost?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added.]</p>
+      <p>Endless Access programs are free for learners. If you're an organization interested in running a program with your community, reach out at <a href="mailto:learning@endlessaccess.org">learning@endlessaccess.org</a> and we can walk you through what partnership looks like.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Where can I find the supporting documents (slides, etc.)? <span class="placeholder-note">needs answer</span></summary>
+    <summary>Where can I find the supporting documents (slides, etc.)?</summary>
     <div class="faq-answer">
-      <p>[Answer to be added.]</p>
+      <p>All curriculum materials, including facilitator slides, speaker notes, and learner resources, are available on your program page on the platform once you're set up as an educator. If you can't find something or need access, email <a href="mailto:learning@endlessaccess.org">learning@endlessaccess.org</a> and we'll get you sorted.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Where can we play Threadbare?</summary>
+    <summary>Where can we play <em>Threadbare</em>?</summary>
     <div class="faq-answer">
-      <p>You and your learners can play Threadbare from any computer or laptop browser at <a href="https://play.threadbare.game/" target="_blank" rel="noopener">play.threadbare.game</a>.</p>
+      <p>You and your learners can play <em>Threadbare</em> from any computer or laptop browser at <a href="https://play.threadbare.game/" target="_blank" rel="noopener">play.threadbare.game</a>.</p>
     </div>
   </details>
 
@@ -467,7 +507,7 @@
     <summary>What is an open-source project?</summary>
     <div class="faq-answer">
       <p>An open-source project is a development model where software source code is made publicly available, allowing anyone to use, modify, and distribute it freely.</p>
-      <p>Threadbare is open source! That means <strong>when you contribute to Threadbare, your work lives on.</strong></p>
+      <p><em>Threadbare</em> is open source! That means <strong>when you contribute to <em>Threadbare</em>, your work lives on.</strong></p>
     </div>
   </details>
 
@@ -480,14 +520,14 @@
   </details>
 
   <details class="faq-item">
-    <summary>My learner can't log in to the platform — what should I do?</summary>
+    <summary>My learner can't log in to the platform. What should I do?</summary>
     <div class="faq-answer">
       <p>Make sure they're using the correct Access Code, and that they've checked the <strong>My Programs</strong> page to find the program.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>The site is blocked — what's going on?</summary>
+    <summary>The site is blocked. What's going on?</summary>
     <div class="faq-answer">
       <p>If you're using school devices, ask your IT team to allow the following domains:</p>
       <ul>
@@ -508,12 +548,13 @@
   <details class="faq-item">
     <summary>How do learners earn a microcredential?</summary>
     <div class="faq-answer">
-      <p>While <strong>Explore: Threadbare</strong> earns learners XP (150 XP per contribution), the microcredential is only awarded after they have:</p>
+      <p>Microcredentials are earned by reaching an XP threshold within a specific program. Each credential has its own requirement:</p>
       <ul>
-        <li>Completed at least 5 workshops (one from each domain), AND</li>
-        <li>Completed all of the <strong>Explore: Godot</strong> program, including submitting their final level design</li>
+        <li><strong>Introduction to Game Making with Godot</strong>: earn 1,500 XP in Explore: Godot (~15 hours)</li>
+        <li><strong>Community Game Making</strong>: earn 2,000 XP in Core: <em>Threadbare</em> (~24 hours)</li>
+        <li><strong>Applied Game Making: Concept to Canon</strong>: earn 1,000 XP in a Lore Jam (~10 hours)</li>
       </ul>
-      <p>This earns them a total of 2,000 XP and the <strong>Introduction to Game Making with Godot</strong> credential from ASU.</p>
+      <p>Once a learner hits the threshold, they'll see a notification on their dashboard to claim their credential. The credential is issued by the ASU Endless Games and Learning Lab and will appear on their profile once issued.</p>
     </div>
   </details>
 
@@ -527,9 +568,7 @@
 
 <div class="section-divider"><hr></div>
 
-<!-- ============================================ -->
-<!-- PARTNERS SECTION                              -->
-<!-- ============================================ -->
+<!-- PARTNERS -->
 <section class="faq-section anchor-target" id="partners">
   <div class="section-tag">🤝 For Partners</div>
   <h2>Partner FAQs</h2>
@@ -539,23 +578,22 @@
     <summary>What are the tech requirements?</summary>
     <div class="faq-answer">
       <ul>
-        <li><strong>Threadbare:</strong> 4 GB RAM | Chrome / Firefox / Edge</li>
-        <li><strong>Godot-based programs:</strong> 8 GB RAM minimum | Chrome / Edge only</li>
+        <li><strong><em>Threadbare</em>:</strong> 4 GB RAM | Chrome / Firefox / Edge</li>
+        <li><strong>Godot-based programs:</strong> 8 GB RAM minimum</li>
       </ul>
       <p>You can find more in-depth tech specs for each program <a href="https://docs.google.com/document/d/1-hvNBdOtQKVcBM2OIJWRvH-lPIN6879YEXjm807f8oA/edit" target="_blank" rel="noopener">here</a>.</p>
     </div>
   </details>
 
   <details class="faq-item">
-    <summary>Where can I find Threadbare's repository?</summary>
+    <summary>Where can I find <em>Threadbare</em>'s repository?</summary>
     <div class="faq-answer">
-      <p>All game repositories used in our programs live in the <a href="https://github.com/endlessm" target="_blank" rel="noopener">Endless Access GitHub Organization</a>.</p>
-      <p>This is a public organization, so you can see everything in it even if you don't have a GitHub account yourself.</p>
+      <p><em>Threadbare</em> is open source and lives on GitHub. You can find the full repository at <a href="https://github.com/endlessm/threadbare" target="_blank" rel="noopener">github.com/endlessm/threadbare</a>.</p>
+      <p>All game repositories used in our programs live in the <a href="https://github.com/endlessm" target="_blank" rel="noopener">Endless Access GitHub Organization</a>. This is a public organization, so you can see everything in it even if you don't have a GitHub account yourself.</p>
     </div>
   </details>
 </section>
 
-<!-- STILL HAVE QUESTIONS -->
 <section class="contact">
   <h2>Still have questions?</h2>
   <div class="contact-grid">
@@ -571,6 +609,32 @@
     </a>
   </div>
 </section>
+
+
+<script>
+  // Auto-open accordion and spotlight it with a random Threadbare emoji
+  function openTargetAccordion() {
+    var emojis = ["🧵", "🧶", "🪡", "🪢"];
+    document.querySelectorAll("details.faq-item.spotlight").forEach(function(el) {
+      el.classList.remove("spotlight");
+      el.removeAttribute("data-emoji");
+    });
+    var hash = window.location.hash;
+    if (!hash) return;
+    var target = document.querySelector(hash);
+    if (target && target.tagName === "DETAILS") {
+      target.open = true;
+      target.classList.add("spotlight");
+      var pick = emojis[Math.floor(Math.random() * emojis.length)];
+      target.setAttribute("data-emoji", pick);
+      setTimeout(function() {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  }
+  window.addEventListener("load", openTargetAccordion);
+  window.addEventListener("hashchange", openTargetAccordion);
+</script>
 
 </body>
 </html>

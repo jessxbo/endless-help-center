@@ -338,6 +338,62 @@
     display: block;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   }
+  details.faq-item.spotlight summary {
+    font-size: 20px;
+    padding-right: 40px;
+  }
+  details.faq-item.spotlight summary::after {
+    top: 6px;
+    font-size: 28px;
+  }
+  details.faq-item.spotlight .faq-answer {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  details.faq-item.spotlight .faq-answer p {
+    margin-bottom: 14px;
+  }
+
+
+  /* ===== Threadbare-style spotlight (when arriving via anchor link) ===== */
+  details.faq-item.spotlight {
+    background: #fbf4e8;
+    border-left: 4px solid #ff6b1a;
+    border-bottom: 2px dashed #d4c4a0;
+    padding: 24px 28px 22px;
+    margin: 16px -24px;
+    border-radius: 0 12px 12px 0;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(255, 107, 26, 0.08);
+  }
+  details.faq-item.spotlight::before {
+    content: attr(data-emoji);
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 22px;
+    opacity: 0.85;
+    transform: rotate(15deg);
+  }
+  details.faq-item.spotlight summary {
+    font-size: 20px;
+    padding-right: 50px;
+  }
+  details.faq-item.spotlight summary::after {
+    top: 6px;
+    font-size: 28px;
+    right: 38px;
+    color: #ff6b1a;
+  }
+  details.faq-item.spotlight .faq-answer {
+    font-size: 17px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  details.faq-item.spotlight .faq-answer p {
+    margin-bottom: 14px;
+  }
 
 </style>
 </head>
@@ -417,10 +473,10 @@
   <h2>About Endless</h2>
   <p class="section-intro">Endless is made up of three connected parts. Here's what each one does.</p>
 
-  <details class="faq-item anchor-target" id="endless-studios">
-    <summary>Who is Endless Studios?</summary>
+  <details class="faq-item anchor-target" id="endless">
+    <summary>Who is Endless?</summary>
     <div class="faq-answer">
-      <p>Endless Studios is the studio powering this platform and other creative experiences.</p>
+      <p>Endless is the brand behind a growing ecosystem of creative ventures, including Endless Studios and Endless Access.</p>
     </div>
   </details>
 
@@ -431,10 +487,10 @@
     </div>
   </details>
 
-  <details class="faq-item anchor-target" id="endless">
-    <summary>Who is Endless?</summary>
+  <details class="faq-item anchor-target" id="endless-studios">
+    <summary>Who is Endless Studios?</summary>
     <div class="faq-answer">
-      <p>Endless is the brand behind a growing ecosystem of creative ventures, including Endless Studios and Endless Access.</p>
+      <p>Endless Studios is the studio powering this platform and other creative experiences.</p>
     </div>
   </details>
 
@@ -497,6 +553,32 @@
     </a>
   </div>
 </section>
+
+
+<script>
+  // Auto-open accordion and spotlight it with a random Threadbare emoji
+  function openTargetAccordion() {
+    var emojis = ["🧵", "🧶", "🪡", "🪢"];
+    document.querySelectorAll("details.faq-item.spotlight").forEach(function(el) {
+      el.classList.remove("spotlight");
+      el.removeAttribute("data-emoji");
+    });
+    var hash = window.location.hash;
+    if (!hash) return;
+    var target = document.querySelector(hash);
+    if (target && target.tagName === "DETAILS") {
+      target.open = true;
+      target.classList.add("spotlight");
+      var pick = emojis[Math.floor(Math.random() * emojis.length)];
+      target.setAttribute("data-emoji", pick);
+      setTimeout(function() {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  }
+  window.addEventListener("load", openTargetAccordion);
+  window.addEventListener("hashchange", openTargetAccordion);
+</script>
 
 </body>
 </html>
